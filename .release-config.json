@@ -1,0 +1,44 @@
+{
+  "name": "test-python-release",
+  "type": "python",
+  
+  "version": {
+    "files": ["pyproject.toml"],
+    "patterns": {
+      "pyproject.toml": "version = \"{version}\""
+    }
+  },
+
+  "lint": {
+    "enabled": true,
+    "command": "/usr/bin/python3 -m ruff check ."
+  },
+
+  "tests": {
+    "enabled": true,
+    "command": "PYTHONPATH=/home/rafael/projects/test-python-release/src /usr/bin/python3 -m pytest tests/"
+  },
+
+  "build": {
+    "command": "/usr/bin/python3 -m build",
+    "artifacts": ["dist/*.tar.gz", "dist/*.whl"]
+  },
+
+  "security": {
+    "audit": true,
+    "detectSecrets": true
+  },
+
+  "pr": {
+    "enabled": true,
+    "baseBranch": "main",
+    "requireCI": true,
+    "autoMerge": true,
+    "mergeStrategy": "squash"
+  },
+
+  "githubRelease": {
+    "enabled": true,
+    "generateChangelog": true
+  }
+}
